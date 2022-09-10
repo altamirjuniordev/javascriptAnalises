@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Altas Analises</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      .altura {
+        min-height: 88vh;
+      }
+      .center {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: burlywood;
+        padding: 20px;
+      }
+      h1 {
+        margin: 30px auto;
+        text-align: center;
+        color: aliceblue;
+      }
+      body {
+        background-color: black;
+      }
+      footer {
+        background-color: green;
+        padding: 17px;
+        text-align: center;
+      }
+      select {
+        margin-top: 26px;
+        margin-bottom: 10px;
+      }
+      .botao {
+        padding: 3px 15px;
+        background-color: green;
+        color: whitesmoke;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="altura">
+      <h1>Altas Análises</h1>
+      <section class="center">
+        <div>
+          <p>
+            Número de 1 a 100 para armazenar
+            <input type="number" placeholder="número de 1 a 100" id="num" />
+            <button type="button" value="Guardar" onclick="guardar()" class="botao">Guardar</button>
+          </p>
+          <select name="" id="lista" size="10" style="min-width: 150px;">
+           
+          </select>
+          <div>
+            <input
+              type="button"
+              value="apurar dados"
+              name=""
+              id=""
+              onclick="apurar()"
+              class="botao"
+            />
+          </div>
+        </div>
+        <div id="res"></div>
+      </section>
+    </main>
+    <footer>Todos os direitos reservados Altamir Junior</footer>
+    <script>
+        let objeto = []
+      function guardar() {
+        let res = document.querySelector("div#res");
+        let num = document.querySelector("input#num").value;
+
+        let numero = Number(num)
+        let lista = document.getElementById('lista')
+
+        
+        function testarNumero(n) {
+            if (n<1 || n>100) {
+                return true
+            }   else {
+                return false
+            }
+        }
+
+        function consultaRepeticao(n, l) {
+            if (l.indexOf(n) != -1) {  // objeto.indexOf(valor) = consultar se o valor está no objeto
+                return true
+            }   else {
+                return false
+            }
+        }
+        
+        if (testarNumero(numero) || consultaRepeticao(numero, objeto)) {
+            window.alert ('Verifique os números digitados')
+        } else {        
+            objeto.push(numero)
+            let item = document.createElement('option')
+            item.text = `Número ${numero} adicionado`
+            lista.appendChild(item)
+        }
+      }
+      function apurar() {
+        let maior = 0
+        let menor = 100
+        let soma = 0
+        for (let contador1 in objeto) {
+          if (maior < objeto[contador1]) {
+            maior = objeto[contador1]
+          } if (menor > objeto[contador1]) {
+            menor = objeto[contador1]
+          }
+        }
+        for (let contador2 in objeto) {
+          soma = soma + objeto[contador2]
+        }
+        res.innerHTML = `maior número ${maior}`
+        res.innerHTML += `<br>menor número ${menor}`
+        res.innerHTML += `<br>total de números ${objeto.length}`
+        res.innerHTML += `<br>média dos números ${soma/objeto.length}`
+        res.innerHTML += `<br>soma dos números ${soma}`
+      }
+    </script>
+  </body>
+</html>
